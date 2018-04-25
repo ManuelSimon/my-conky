@@ -1,0 +1,26 @@
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+format_human_readable
+use_xft yes
+xftfont Existence:size=8
+override_utf8_locale yes
+text_buffer_size 2048
+own_window_class Conky
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+alignment top_right
+gap_x 120
+gap_y 150
+minimum_size 290 200
+draw_shades no
+default_color c4c4c4
+TEXT
+${voffset 15}${offset 143}${font FFF Tusj:pixelsize=120}${time %I|%M}${font}${if_match ${time %H}<12}AM${else}${if_match ${time %H}>12}PM${endif}${endif}${font}
+${voffset 30}${offset 155}${font FFF Tusj:pixelsize=30}${alignc}${time %Y %A, %B %d}

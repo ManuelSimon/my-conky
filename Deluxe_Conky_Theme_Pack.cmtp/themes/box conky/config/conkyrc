@@ -1,0 +1,41 @@
+# -- Conky settings by giancarlo64.deviantart.com -- #
+use_xft yes
+xftfont xftfont verdana:style:bold:size=10
+alignment top_right
+gap_x 10
+gap_y 40
+xftalpha 1
+update_interval 1.0
+maximum_width 500
+minimum_size 500 150
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+draw_shades no
+draw_outline no
+draw_borders no
+stippled_borders 10
+border_margin 4
+border_width 1
+default_shade_color 000000
+default_outline_color 000000
+default_color bcbcbc
+use_spacer right
+no_buffers yes
+uppercase no
+
+lua_load ~/.conky/clock_ringsbox.lua
+	lua_draw_hook_pre clock_rings
+
+TEXT
+${image ~/.conky/Box.png  450x130 -p 0,0}
+${voffset 50}${offset 125}${cpu cpu0}%
+${voffset -17}${offset 193}${memperc}%
+${voffset -17}${offset 255}${fs_used_perc /home}%
+${voffset -17}${offset 316}${execi 60 find ~/.local/share/Trash/files -type f | wc -l}
+${voffset -60}${offset 368}Today
+${voffset 3}${offset 365}${font verdana:style:bold:size=25}${time %d}
+${voffset -20}${offset 120}${font verdana:style:bold:size=8}Uptime:  ${uptime_short}
+${voffset -14}${goto 260}${font verdana:style:bold:size=8}Kernel: ${kernel}

@@ -1,0 +1,85 @@
+#Fonctionnement de conky 
+  total_run_times 0		#temps en secondes ; 0 = toujours actif
+  background yes		#Pour que conky tourne en arrière plan ; no = pour les tests
+
+#Réglages système
+  cpu_avg_samples 1		#Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+  net_avg_samples 2		#Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+
+#Mémoire
+  double_buffer yes		#Éviter le clignotement
+  no_buffers yes		#Soustraire les mémoires tampons...
+  text_buffer_size 1024		#...de la mémoire utilisée
+
+#Affichage
+  out_to_console no		#Affiche le texte sur la sortie standard
+  update_interval 1		#Taux de rafraîchissement de la fenêtre (s)
+
+#Fenêtre conky
+  alignment top_left		#Alignement
+ #---
+  minimum_size 400 450		#Taille minimum (px)
+  maximum_width 400		#Largeur maximum (px)
+ #---
+  gap_x 700			#Écart avec le bord gauche / droit
+  gap_y 100			#Écart avec le bord haut / bas
+ #---
+  draw_shades no		#Afficher les ombres
+  draw_outline no		#Afficher les contours de fenêtre
+  draw_borders no		#Afficher des contours autour des blocs de texte
+  border_width 1		#Largeur du contour
+  border_inner_margin 1		#Largeur des marges
+ #---
+  own_window yes		#Utiliser sa propre fenêtre
+  own_window_type desktop 	#Type de fenêtre ; normal / override / desktop
+  own_window_transparent yes	#Pseudo transparence
+
+#Mise en forme
+  use_xft yes			#Utiliser Xft (polices lissées etc)
+  xftalpha .1			#Utiliser Xft
+  override_utf8_locale yes 	#Force l'UTF8
+  uppercase no			#Tout le texte en majuscule
+  use_spacer yes		#Ajoute des espaces après certains objets (qu'avec des polices fixes)
+ #---
+  xftfont saxMono:size=9 	#Police par défaut
+ #---
+  stippled_borders 5		#Taille des pointillés
+
+#Couleurs
+  default_color FFFFFF 		#Couleur par défaut
+  default_shade_color 333333	#Couleur des ombres
+  default_outline_color black	#Couleur des contours
+ #---
+  color1 525252 		#Gris
+  color2 BF0A0D 		#Rouge
+  color3 7AA6CC 		#Bleu
+
+
+TEXT
+${color1}${font Zombified:size=46}${alignc}Informations${font}
+${color2}${hr}
+${color2}${font OpenLogos:size=18}u${font} ${voffset -3}${offset -2}${exec cat /etc/lsb-release | grep -i "codename" | cut -d "=" -f2 | sed 's/^./\u&/'} ${exec cat /etc/lsb-release | grep -i "release" | cut -d "=" -f2}
+${offset 35}${color1}Gnome  : ${exec gnome-about --version | cut -d " " -f3}
+${offset 35}${color1}Uptime : ${color2}${uptime}
+${offset 35}${color1}System : ${color2}${execi 3600 aptitude search "~U" | wc -l | tail} ${color1}maj dispo
+${offset 35}${color1}Noyau  : ${color3}${kernel}
+
+${color2}${font Guifx v2 Transports:size=16}b${font} Fêtes
+${offset 35}${color1}${exec $HOME/Script/Fêtes}
+
+${color2}${font Guifx v2 Transports:size=16}z${font} TodoList
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/TDL/1.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/TDL/2.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/TDL/3.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/TDL/4.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/TDL/5.txt | grep todo | cut -d "=" -f2}
+
+${color2}${font Guifx v2 Transports:size=16}z${font} Agenda
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/Agenda/1.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/Agenda/2.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/Agenda/3.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/Agenda/4.txt | grep todo | cut -d "=" -f2}
+${offset 35}${color1}${exec cat ~/Ubuntu/ToDo/Agenda/5.txt | grep todo | cut -d "=" -f2}
+
+${color3}${offset 58}${font monaco:pixelsize=13}${exec date +%B | sed 's/^.\| [a-z]/\U&/g'} ${time (%m)}
+${color1}${execpi 60 DJS=`date +%_d`; cal | sed '/./!d' | sed '1d'  | sed 's/$/                     /' | fold -w 21 | sed -n '/^.\{21\}/p' | sed 's/^/  /' | sed /" $DJS "/s/" $DJS "/" "'${color3}'"$DJS"'${color2}'" "/}

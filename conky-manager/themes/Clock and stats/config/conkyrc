@@ -1,0 +1,75 @@
+# Conky settings #
+background yes
+update_interval 1
+cpu_avg_samples 2
+net_avg_samples 2
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit celsius
+
+# Window specifications #
+own_window_class Conky
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 1800 800
+maximum_width 1920
+
+alignment tr
+gap_x 90
+gap_y 55
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+override_utf8_locale yes
+xftfont Ubuntu:size=10
+xftalpha 0.8
+uppercase no
+
+temperature_unit celsius
+
+default_color FFFFFF
+color1 DD4814
+color2 444444
+
+# Lua Load  #
+lua_load ~/.conky/rings0-v1.2.1.lua
+lua_draw_hook_pre ring_stats
+
+TEXT
+${voffset 80}${alignr 130}$color1 ${font Ubuntu:size=28}${time %d}$color , ${time %B}
+${goto 290}$color2 ${hr 2}$color2
+${alignr 15}$color1 ${font Ubuntu:size=33}${time %G}${font}
+
+${color}${voffset 30}${alignr}${nodename}
+${alignr 10}$color1 Uptime $color ${uptime_short}
+${alignr 20}${pre_exec cat /etc/issue.net}, ${kernel}
+
+${alignr 30}Root $color1 ${fs_used /} $color/ ${fs_size /}
+${alignr 40}Home $color1${fs_used /home/} $color/ ${fs_size /home/}
+
+${alignr 50}${voffset 30}${pre_exec cat /proc/cpuinfo | grep 'model name' | sort -u | cut -c14-33,44-60}
+${alignr 60}$color1 Temperature $color ${acpitemp}° C, $color1 CPU $color ${cpu cpu0}%
+
+${alignr 80}${voffset 45}$color1 RAM $color ${memperc}%
+${alignr 90}Processes ${processes}, Running ${running_processes}
+
+${alignr 120}${voffset 45}$color1 ${upspeed eth0}$color Upload
+${alignr 130}$color1 ${downspeed eth0}$color Download
+${alignr 140}Public IP $color1 ${exec wget -q -O - checkip.dyndns.org | sed -e 's/[^[:digit:]|.]//g'}$color

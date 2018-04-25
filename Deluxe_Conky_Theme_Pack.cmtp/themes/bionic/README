@@ -1,0 +1,18 @@
+
+Steel "Conky by Mucas
+V2.0
+
+INSTRUCTIONS:
+
+1-Extract files;
+
+2-Put "Conky" folder in your $HOME directory and rename it ".Conky";
+
+3-Don't forget to install the fonts;
+
+4-Create a new entry in "Startup Applications" pointing it to the file "start_conky.sh" that is inside Conky folder.
+
+5-Enjoy.
+
+
+

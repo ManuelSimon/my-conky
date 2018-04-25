@@ -1,0 +1,83 @@
+# — Conky settings — #
+
+background yes
+
+update_interval 1
+total_run_times 0
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+imlib_cache_size 0
+
+temperature_unit celcius
+
+# — Window specifications — #
+
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 160 590
+maximum_width 160
+
+alignment top_right
+
+gap_x 0
+gap_y 75
+
+
+# — Graphics settings — #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# — Text settings — #
+use_xft yes
+xftfont hooge 05_54:size=6
+xftalpha 0.1
+
+default_color FFFFFF
+default_gauge_size 47 25
+
+uppercase no
+use_spacer right
+
+color0 white
+color1 orange
+color2 green
+
+# — Lua Load — #
+
+lua_load ~/.Conky/bionic/scripts/rings.lua
+lua_draw_hook_pre main_rings
+
+TEXT
+${image ~/.Conky/bionic/pix/bg.png -p 0,0 -s 160x590}
+${voffset 55}${goto 108}${time %H:%M}
+${voffset 2}${goto 95}${scroll 8 ${time %a, %d/%b/%Y}}
+${voffset 12}${goto 40}${cpu cpu0}%
+${voffset 89}${goto 94}${memperc}%
+${voffset 27}${goto 100}IN:
+${goto 100}${downspeed wlan0}
+${voffset 1}${goto 100}OUT:
+${goto 100}${upspeed wlan0}
+${voffset 1}${goto 99}HDD FREE
+${goto 99}${scroll 9 ${fs_free}/${fs_size}}
+${voffset 1}${goto 100}UPTIME:
+${goto 100}${scroll 8 ${uptime}}
+${voffset -8}${goto 49}${wireless_link_qual wlan0}
+${voffset 147}${goto 60}BAT
+${voffset 78}${goto 87}VOL
+${if_running exaile}${voffset -55}${goto 43}EXAILE:
+${goto 43}${scroll 16 TRACK: ${execi 3 exaile --get-title}. ARTIST: ${execi 3 exaile --get-artist}. ALBUM: ${execi 3 exaile --get-album}.}$endif
+

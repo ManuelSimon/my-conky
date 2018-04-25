@@ -1,0 +1,95 @@
+# Conky settings #
+background no
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit fahrenheit
+
+# Window specifications #
+
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 218 220
+maximum_width 220
+maximum_height 400
+alignment tr
+gap_x 10
+gap_y 20
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+override_utf8_locale yes
+xftfont Neuropolitical:size=8
+xftalpha 0
+uppercase no
+
+temperature_unit celsius
+
+default_color FFFFFF
+color0 FFFFFF
+color1 062b61 
+color2 000000 
+color3 DE3D00 
+color4 dcde1c 
+color5 0a57a4 
+
+# Lua Load #
+lua_load ~/.conky/.boxconky/rings.lua
+lua_load ~/.conky/.boxconky/box.lua
+lua_draw_hook_pre clock_rings
+lua_draw_hook_post main_box
+
+TEXT
+${voffset 5}${offset 15}${font Neuropolitical:size=36}${color1}${time %e}
+${goto 25}${font Neuropolitical:size=18}${color5}${voffset -30}${time %b}${color FFFFFF}${offset 10}${time %Y}
+${font Neuropolitical:size=12}${color1}${voffset 5}${goto 20}${time %A}${goto 153}${color5}${time %H}:${time %M}
+
+${font Neuropolitical:size=9}${color1}${voffset 55}${goto 15}CPU 1${goto 118}CPU2
+${goto 18}${cpu cpu0}%${goto 122}${cpu cpu1}%
+${image ~/.conky/.boxconky/logo.png -p 158,13 -s 50x50}
+
+${voffset -18}${goto 15}${font Pragmata:size=9}${color5}${top name 1}${goto 65}${top cpu 1}%${goto 118}${top name 1}${goto 167}${top cpu 2}%
+${goto 15}${font Pragmata:size=8}${color2}${top name 2}${goto 65}${top cpu 1}%${goto 118}${top name 2}${goto 167}${top cpu 2}%
+#${goto 15}${font Pragmata:size=8}${color1}${top name 3}${goto 65}${top cpu 1}%${goto 118}${top name 3}${goto 167}${top cpu 2}%
+
+
+${voffset -2}${goto 120}${color2}${font Pragmata:size=8}Uptime: ${uptime_short}
+${goto 120}${color2}${font Pragmata:size=8}Processes: ${processes}
+${goto 120}${color2}${font Pragmata:size=8}Running: ${running_processes}
+
+${voffset -48}${goto 15}${color1}${font Neuropolitical:size=9}RAM
+${goto 18}${memperc}%
+
+${voffset -40}${goto 120}${voffset 56}Swap
+${goto 128}${swapperc}%
+
+${goto 15}${voffset 60}${color1}Root${goto 83}Home${goto 155}USB
+${voffset 5}${offset 15}${font Pragmata:size=8,weight:normal${alignr}}${color2}Us :${fs_used /}${goto 85}Us:${fs_used /home}${goto 150}Us:${fs_used /mnt/usb} 
+${voffset 0}${offset 15}${font Pragmata:size=8,weight:normal${alignr}}${color2}Sz :${fs_size /}${goto 85}Sz:${fs_size /home}${goto 150}Sz:${fs_used /mnt/usb}
+
+${voffset 83}${goto 15}${color1}${font Neuropolitical:size=9}Connections${goto 138}Battery
+${goto 10}${color2}${font Pragmata:size=9}IP:${addr wlan0}${goto 122}Charge:${goto 188}${battery_percent BAT0}%
+${goto 10}${color2}${font Pragmata:size=9}Gw:${gw_ip}${goto 122}Left:${goto 150}${battery_time BAT0}
+${goto 125}Ac${goto 160}${acpiacadapter}

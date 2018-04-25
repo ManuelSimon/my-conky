@@ -1,0 +1,88 @@
+#Fonctionnement de conky 
+  total_run_times 0		#temps en secondes ; 0 = toujours actif
+  background yes		#Pour que conky tourne en arrière plan ; no = pour les tests
+
+#Réglages système
+  cpu_avg_samples 1		#Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+  net_avg_samples 2		#Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+
+#Mémoire
+  double_buffer yes		#Éviter le clignotement
+  no_buffers yes		#Soustraire les mémoires tampons...
+  text_buffer_size 1024		#...de la mémoire utilisée
+
+#Affichage
+  out_to_console no		#Affiche le texte sur la sortie standard
+  update_interval 1		#Taux de rafraîchissement de la fenêtre (s)
+
+#Fenêtre conky
+  alignment top_left		#Alignement
+ #---
+  minimum_size 290 10		#Taille minimum (px) ; largeur / hauteur
+  maximum_width 290		#Largeur maximum (px)
+ #---
+  gap_x 5			#Écart avec le bord gauche / droit
+  gap_y 200			#Écart avec le bord haut / bas
+ #---
+  draw_shades no		#Afficher les ombres
+  draw_outline no		#Afficher les contours de fenêtre
+  draw_borders no		#Afficher des contours autour des blocs de texte
+  border_width 1		#Largeur du contour
+  border_inner_margin 1		#Largeur des marges
+ #---
+  own_window yes		#Utiliser sa propre fenêtre
+  own_window_type desktop 	#Type de fenêtre ; normal / override / desktop
+  own_window_transparent yes	#Pseudo transparence
+
+#Mise en forme
+  use_xft yes			#Utiliser Xft (polices lissées etc)
+  xftalpha .1			#Utiliser Xft
+  override_utf8_locale yes 	#Force l'UTF8
+  uppercase no			#Tout le texte en majuscule
+  use_spacer no			#Ajoute des espaces après certains objets (qu'avec des polices fixes)
+ #---
+  xftfont saxMono:size=9 	#Police par défaut
+ #---
+  stippled_borders 5		#Taille des pointillés
+
+#Couleurs
+  default_color FFFFFF 		#Couleur par défaut
+  default_shade_color 333333	#Couleur des ombres
+  default_outline_color black	#Couleur des contours
+ #---
+  color1 525252 		#Gris
+  color2 BF0A0D 		#Rouge
+  color3 7AA6CC 		#Bleu
+
+
+TEXT
+${color1}${font Zombified:size=46}${alignc}System${font}
+${color2}${hr}
+${color2}${font StyleBats:size=16}a${font} CPU ${cpu cpu}%
+${offset 35}${color1}Core 1 : ${color3}${platform coretemp.0 temp 1}°C${goto 170}${color2}${cpu cpu1}%${color1}${alignr}${color3}${freq_g 1} GHz
+${offset 35}${color1}${cpugraph cpu1 25,0 000000 BF0A0D}
+${offset 35}${color1}Core 2 : ${color3}${platform coretemp.1 temp 1}°C${goto 170}${color2}${cpu cpu2}%${color1}${alignr}${color3}${freq_g 2} GHz
+${offset 35}${color1}${cpugraph cpu2 25,0 000000 BF0A0D}
+
+${color2}${font StyleBats:size=16}p${font} Memory
+${offset 35}${color1}RAM  : ${color3}$memperc %${goto 120}${color1}${membar 9}
+${offset 35}${color1}Swap : ${color3}$swapperc %${goto 120}${color1}${swapbar 9}
+
+${color2}${font StyleBats:size=16}q${font} Processes ${processes}
+${offset 35}${color1}Running : ${running_processes}
+${offset 35}Top CPU : ${color3}${top name 1}${goto 200}${color1}${top pid 1}${color2}${alignr}${top cpu 1}%
+${offset 35}${color1}Top RAM : ${color3}${top_mem name 1}${goto 200}${color1}${top_mem pid 1}${color2}${alignr}${top_mem mem 1}%
+
+${color2}${font StyleBats:size=16}e${font} Hard Drive ${hddtemp /dev/sda}°C
+${offset 35}${color1}/root${goto 120}Used ${color3}${fs_used_perc /}%${alignr}${color1}Free ${color2}${fs_free /}
+${offset 35}${color1}${fs_bar 9 /}
+${offset 35}${color1}/home${goto 120}Used ${color3}${fs_used_perc /home}%${alignr}${color1}Free ${color2}${fs_free /home}
+${offset 35}${color1}${fs_bar 9 /home}
+
+${color2}${font StyleBats:size=16}f${font} USB Device
+${offset 35}${color1}/Lexar${goto 120}${if_mounted /media/LEXAR}${color1}Used ${color3}${fs_used_perc /media/LEXAR}%${alignr}${color1}Free ${color2}${fs_free /media/LEXAR}
+${offset 35}${color1}${fs_bar 9 /media/LEXAR}${else}Déconnecté${endif}
+${offset 35}${color1}/Linux${goto 120}${if_mounted /media/Linux}${color1}Used ${color3}${fs_used_perc /media/Linux}%${alignr}${color1}Free ${color2}${fs_free /media/Linux}
+${offset 35}${color1}${fs_bar 9 /media/Linux}${else}Déconnecté${endif}
+${offset 35}${color1}/LaCie${goto 120}${if_mounted /media/LaCie_PC}${color1}Used ${color3}${fs_used_perc /media/LaCie_PC}%${alignr}${color1}Free ${color2}${fs_free /media/LaCie_PC}
+${offset 35}${color1}${fs_bar 9 /media/LaCie_PC}${else}Déconnecté${endif}

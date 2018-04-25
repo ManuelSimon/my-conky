@@ -1,0 +1,13 @@
+
+
+# Instructions d'installation:
+
+
+  Copier la police "Neuropolitical" dans le repertoire usr/share/font/.
+
+  Dans votre dossier personnel:
+        Copier le fichier "conkyrc" et le renommer en ".conkyrc".
+        Copier le fichier "clock_rings.lua" dans .lua/scripts/.
+        Copier le fichier "logo" dans .conky/
+
+#  Vous n'avez plus qu'a lancer via la commande Conky dans un terminal.

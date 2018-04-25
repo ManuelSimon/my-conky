@@ -1,0 +1,80 @@
+HAL-9000 Conky 
+Based on Conky LUA by despot77 http://gnome-look.org/content/show.php?content=139024&forumpage=0&PHPSESSID=96b34f45bb11c9418cf37e943b12b358
+
+Installation is simple, move the entire halconky folder to your home directory, move conkyrc to your home directory and rename it .conkyrc. 
+
+Changes in this Customization:
+Added support for Dual CPU's
+HAL-9000 "Eye" clock face
+Moved alignment of bottom elements to Left Justified
+Added Gmail tracking 
+Added RSS Feed
+
+Setup:
+If you are not on Gnome 3 coment out the following line in .conkyrc by adding a # at the begining of it.
+
+own_window_type normal
+
+For Non-Gnome 3 desktops uncomment the following Line
+
+own_window_type override
+
+Weather Setup:
+
+Go to http://weather.noaa.gov use the drop down menu's for either your US State or Country on the page this opens continue to pick locations from drop down menu's til you reach a page for your current weather conditions.
+In the URL for this page there is a 4 letter code ie. http://weather.noaa.gov/weather/current/KSYR.html in this page the location code is KSYR, copy the code from your location's page and then open .conkyrc and enter it on this line
+ 
+${font caviar dreams:size=12}${color 850100}${alignr}${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ KSYR temperature temperature 30} °F${font}  
+
+Replace KSYR with your locations code, remember to maintain the blank space prior to the location code.
+
+Gmail- Gmail requires you to open gmail.py in ~/halconky/scripts/  Open this file and enter your information in the "username" and "password" fields.  
+
+Do Not Edit anything other than "username" and "password"  Make sure you leave the " " marks.
+
+If your Conky is not showing Network traffic try changing wlan0 to eth0
+
+RSS- Change the URL for the RSS feed to any RSS Feed's URL you wish to display.  
+
+
+Starting Conky:
+
+Open a Terminal enter 
+$killall conky
+$conky
+
+To have Conky start automatically in Gnome 2 do the following 
+Open a Terminal and enter
+
+$gedit .conky_start.sh
+
+In the file that opens copy and paste the following.
+
+#!/bin/bash
+sleep 10 && conky;
+
+Save and close the file, in your terminal now type 
+
+$chmod a+x .conky_start.sh
+
+Go to menu: system>preferences>session>startup programs and add the script you just created [The path to the script is ~/.conky_start.sh]
+
+Alternatively you can open ~/.config/autostart and make a new file named conky.desktop and enter the folloing into it.
+
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=conky
+Comment=system viewer
+Exec= conky
+StartupNotify=false
+Terminal=false
+Hidden=false
+
+For Gnome 3 users use the alternative method above. 
+
+This will have conky start up automatically when you login. 
+
+
+

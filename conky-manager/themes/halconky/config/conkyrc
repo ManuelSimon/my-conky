@@ -1,0 +1,91 @@
+# Conky settings #
+background no
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit fahrenheit
+
+# Window specifications #
+
+own_window yes
+#own_window_type override
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 200 250
+maximum_width 200
+
+alignment tr
+gap_x 35
+gap_y 55
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+
+uppercase no
+#tempature_unit celsius
+temperature_unit fahrenheit
+
+
+default_color 850100
+
+# Lua Load  #
+lua_load ~/.conky/hal_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT
+${voffset 8}${color cccccc}${font caviar dreams:size=16}${time %A}${font}${voffset -8}${alignr 50}${color 850100}${font caviar dreams:size=38}${time %e}${font}
+${color 850100}${voffset -30}${color 850100}${font caviar dreams:size=18}${time %b}${font}${voffset -3} ${color cccccc}${font caviar dreams:size=20}${time %Y}${font}${color cccccc}${hr}
+
+${voffset 140}${font caviar dreams:size=10}${alignr}HOME${font}
+#replace KSYR with your city code from at http://weather.noaa.gov
+${font caviar dreams:size=12}${color 850100}${alignr}${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ KSYR temperature temperature 30} °F${font}
+${image ~/.conky/hal.png -p 4,53 -s 192x192}
+${color 850100}${goto 5}${voffset 35}${cpu cpu1}% ${goto 33}${cpu cpu2}%
+${color cccccc}${goto 20}CPU
+${color 850100}${goto 50}${voffset 23}${memperc}%
+${color cccccc}${goto 50}RAM
+${color 850100}${goto 75}${voffset 23}${swapperc}%
+${color cccccc}${goto 75}Swap
+${color 850100}${goto 100}${voffset 23}${fs_used_perc /}%
+${color cccccc}${goto 100}Disk
+${color 850100}${goto 125}${voffset 25}${downspeed wlan0}
+${color 850100}${goto 125}${upspeed wlan0}
+${color cccccc}${goto 125}Net
+
+
+${color 850100}HAL-9000 System Diagnostics ${hr 1}
+${color cccccc}${font caviar dreams:size=8}Uptime: ${uptime_short}
+${color cccccc}${font caviar dreams:size=8}Processes: ${processes}
+${color cccccc}${font caviar dreams:size=8}Running: ${running_processes}
+${color cccccc}${font caviar dreams:size=8}${pre_exec cat /etc/issue.net}  $machine
+${color cccccc}${font caviar dreams:size=8}Kernel: ${kernel}
+
+${color 850100}Waiting Messages ${hr 1}
+${color cccccc}Google Mail ${color}${execi 300 python ~/.conky/gmail.py} ${color 850100}
+
+${color 850100}Latest Transmissions ${hr 1}
+${color cccccc}${rss http://www.fark.com/fark.rss 3 item_titles 3 }
+#Replace URL in above Line with RSS Feed of Choice

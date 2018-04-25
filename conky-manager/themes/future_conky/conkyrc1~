@@ -1,0 +1,114 @@
+# — Conky settings — #
+
+background yes
+
+update_interval 1
+total_run_times 0
+net_avg_samples 2
+diskio_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+imlib_cache_size 0
+
+temperature_unit celcius
+
+# — Window specifications — #
+
+own_window_class Conky
+own_window yes
+own_window_type conky
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 200 650
+maximum_width 200
+
+alignment top_right
+
+gap_x 10
+gap_y 45
+
+
+# — Graphics settings — #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# — Text settings — #
+use_xft yes
+xftfont hooge 05_53:size=6
+xftalpha 0.1
+
+default_color FFFFFF
+default_gauge_size 47 25
+
+uppercase no
+use_spacer right
+
+color0 white
+color1 orange
+color2 green
+
+# — Lua Load — #
+lua_load $HOME/.Conky/future_conky/sector_rings.lua
+lua_draw_hook_pre main_rings
+#lua_load $HOME/.Conky/future_conky/scripts/multi_rings.lua
+#lua_draw_hook_post main
+
+TEXT
+${voffset 107}
+${image $HOME/.Conky/future_conky/pix/bg2.png -p 1,130 -s 200x130}
+${voffset 21}${goto 15}RAM- Network- GPU Temp- cpu 1-4
+${voffset 8}${goto 137}${cpugraph cpu1 7,52 FFFFFF FFFFcc -t}
+${voffset 0}${goto 137}${cpugraph cpu2 7,52 FFFFFF FFFFcc -t}
+${voffset 0}${goto 137}${cpugraph cpu3 7,52 FFFFFF FFFFcc -t}
+${voffset 0}${goto 137}${cpugraph cpu4 7,52 FFFFFF FFFFcc -t}
+${voffset -23}${goto 60}t.ram ${memmax}
+${voffset 11}${goto 68}${swap}: ${swapmax}
+${voffset 11}${goto 66}cache ${cached}
+${voffset 14}${goto 10}NT d: ${downspeed eth0}${voffset -6}${goto 75}${downspeedgraph eth0 12,56 FFFFFF FFFFcc -t}
+${voffset 6}${goto 25}U: ${upspeed eth0}${voffset -7}${goto 75}${upspeedgraph eth0 12,56 FFFFFF FFFFcc}
+${voffset -67}${goto 32}RM
+${voffset 18}
+${voffset 26}
+${voffset -31}${goto 161}G
+${image $HOME/.Conky/future_conky/pix/bg2c.png -p 1,261 -s 200x260}
+${voffset 43}${goto 15}Fan Speed - Core Temp
+${voffset 12}${goto 70}CPU FAN - 1
+${voffset 11}${goto 77}CPU: ${cpu cpu0} %
+${voffset 11}${goto 70}TOP FAN - 2
+${voffset 12}${goto 28}RPM${goto 155}RPM
+${voffset 21}${goto 42}${goto 168}
+${voffset 0}${goto 72}Core Temps
+${voffset 4}${goto 42}${goto 168}
+${voffset 37}${goto 65} REAR FAN - 3  
+${voffset 11}${goto 85}${freq_g} GHz
+${voffset 11}${goto 66} FRONT fAN - 8
+${voffset 10}${goto 28}rpm${goto 155}rpm
+
+${image $HOME/.Conky/future_conky/pix/bg2.png -p 1,512 -s 200x130}
+${voffset 12}${goto 15}DISKs- MB Temp- CPU 5-8 
+${voffset 8}${goto 137}${cpugraph cpu5 7,52 FFFFFF FFFFcc -t}
+${voffset 0}${goto 137}${cpugraph cpu6 7,52 FFFFFF FFFFcc -t}
+${voffset 0}${goto 137}${cpugraph cpu7 7,52 FFFFFF FFFFcc -t}
+${voffset 0}${goto 137}${cpugraph cpu8 7,52 FFFFFF FFFFcc -t}
+${voffset -23}${goto 60}${fs_free /} : ${fs_size /}
+${voffset 11}${goto 71}Free : Total
+${voffset 11}${goto 65}${fs_free /home} : ${fs_size /home}
+${voffset 14}${goto 10}sd a: ${diskio sda}${voffset -6}${goto 75}${diskiograph sda 12,56  FFFFFF FFFFcc -t}
+${voffset 6}${goto 25}b: ${diskio sdb}${voffset -7}${goto 75}${diskiograph sdb 12,56 FFFFFF FFFFcc}
+${voffset -67}${goto 33}fs
+${voffset 18}
+${voffset 26}
+${voffset -31}${goto 157}MB
+
+

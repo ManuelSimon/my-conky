@@ -1,0 +1,63 @@
+#==============================================================================
+#                                  conkyrc_bars
+# author  : mazur888
+#  version : v1
+#  license : Distributed under the terms of GNU GPL version 2 or later
+#
+#==============================================================================
+
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+gap_x 430
+gap_y -270
+minimum_size 950 600
+maximum_width 2000
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+alignment lb # top right
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+override_utf8_locale yes
+use_xft yes
+xftfont ubuntu light:size=10
+xftalpha 0.5
+uppercase no
+
+lua_load ~/.conky/conky-equalizer/conky_eq.lua
+lua_draw_hook_pre main_bars
+
+TEXT
+
+
+
+
+#${color dddddd}${font ubuntu,size 3,style:normal}
+${goto 640}System:  ${pre_exec cat /etc/issue.net}
+${goto 640}Kernel:  $sysname $kernel $machine
+${goto 640}Wireless Ip:  ${addr wlan0}
+${goto 640}LAN Ip:  ${addr eth0}
+${goto 640}Public IP:  ${pre_exec wget -O - http://ip.tupeux.com | tail}
+${goto 640}Network ID:  ${wireless_essid wlan0}
+${goto 640}Disk: ${diskio}%
+#
+${goto 5}Cpu ${goto 60}Cpu 1${goto 115}Ram${goto 170}Media${goto 225}Home${goto 280}Free${goto 335}Down${goto 390}Up${goto 445}Wifi${goto 500}Batt${goto 555}Temp${goto 640}
+#
+${goto 5}${cpu cpu}%${goto 60}${cpu cpu1}%${goto 115}${memperc}%${goto 170}${fs_used_perc /media/Media}%${goto 225}${fs_used_perc /home}%${goto 280}${fs_free_perc}%${goto 335}${downspeedf eth0}${goto 390}${upspeedf eth0}${goto 445}${wireless_link_qual_perc wlan0}%${goto 500}${battery_percent BAT0}%${goto 555}${acpitemp} C
+
+

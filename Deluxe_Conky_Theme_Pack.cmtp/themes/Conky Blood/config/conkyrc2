@@ -1,0 +1,91 @@
+#Fonctionnement de conky 
+  total_run_times 0		#temps en secondes ; 0 = toujours actif
+  background yes		#Pour que conky tourne en arrière plan ; no = pour les tests
+
+#Réglages système
+  cpu_avg_samples 1		#Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+  net_avg_samples 2		#Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+
+#Mémoire
+  double_buffer yes		#Éviter le clignotement
+  no_buffers yes		#Soustraire les mémoires tampons...
+  text_buffer_size 1024		#...de la mémoire utilisée
+
+#Affichage
+  out_to_console no		#Affiche le texte sur la sortie standard
+  update_interval 1		#Taux de rafraîchissement de la fenêtre (s)
+
+#Fenêtre conky
+  alignment top_left		#Alignement
+ #---
+  minimum_size 290 450		#Taille minimum (px)
+  maximum_width 290		#Largeur maximum (px)
+ #---
+  gap_x 350			#Écart avec le bord gauche / droit
+  gap_y 200			#Écart avec le bord haut / bas
+ #---
+  draw_shades no		#Afficher les ombres
+  draw_outline no		#Afficher les contours de fenêtre
+  draw_borders no		#Afficher des contours autour des blocs de texte
+  border_width 1		#Largeur du contour
+  border_inner_margin 1		#Largeur des marges
+ #---
+  own_window yes		#Utiliser sa propre fenêtre
+  own_window_type desktop 	#Type de fenêtre ; normal / override / desktop
+  own_window_transparent yes	#Pseudo transparence
+
+#Mise en forme
+  use_xft yes			#Utiliser Xft (polices lissées etc)
+  xftalpha .1			#Utiliser Xft
+  override_utf8_locale yes 	#Force l'UTF8
+  uppercase no			#Tout le texte en majuscule
+  use_spacer no			#Ajoute des espaces après certains objets (qu'avec des polices fixes)
+ #---
+  xftfont saxMono:size=9 	#Police par défaut
+ #---
+  stippled_borders 5		#Taille des pointillés
+
+#Couleurs
+  default_color FFFFFF 		#Couleur par défaut
+  default_shade_color 333333	#Couleur des ombres
+  default_outline_color black	#Couleur des contours
+ #---
+  color1 525252 		#Gris
+  color2 BF0A0D 		#Rouge
+  color3 7AA6CC 		#Bleu
+
+
+TEXT
+${color1}${font Zombified:size=46}${alignc}Network${font}
+${color2}${hr}
+${color2}${font StyleBats:size=16}5${font} Transfers
+${offset 35}${color1}Up   : ${color3}${upspeed wlan0}${alignr}${color1}Total : ${color2}${totalup wlan0}
+${offset 35}${color1}${upspeedgraph wlan0 25,0 000000 BF0A0D}
+${offset 35}${color1}Down : ${color3}${downspeed wlan0}${alignr}${color1}Total : ${color2}${totaldown wlan0}
+${offset 35}${color1}${downspeedgraph wlan0 25,0 000000 BF0A0D}
+
+${color2}${font StyleBats:size=16}n${font} ${if_existing /proc/net/route wlan0}Connected ${wireless_link_qual_perc wlan0}%
+${offset 35}${color1}Type : ${color3}${gw_iface}
+${offset 35}${color1}Name : ${wireless_essid wlan0}${else}Disconnected
+${offset 35}${color1}Type : unknown
+${offset 35}${color1}Name : unknown${endif}
+
+${color2}${font StyleBats:size=16}y${font} Address IP${if_existing /proc/net/route wlan0}
+${offset 35}${color1}Loc. : ${addr wlan0}
+${offset 35}${color1}Pas. : ${gw_ip}
+${offset 35}${color1}Pub. : ${execi 60 wget www.whatismyip.com/automation/n09230945.asp -O - -q}${else}
+${offset 35}${color1}Loc. : xxx.xxx.xxx.xxx
+${offset 35}${color1}Pas. : xxx.xxx.xxx.xxx
+${offset 35}${color1}Pub. : xxx.xxx.xxx.xxx${endif}
+
+${color2}${font StyleBats:size=16}h${font} Web Radio${if_existing /proc/net/route wlan0}
+${offset 35}${color1}Freq : ${color3}Tempomix
+${offset 35}${color1}${execi 10 ~/Script/tempomix_internet}
+${else}
+${offset 35}${color1}Freq : unknown
+${offset 35}${color1}Star : unknown
+${offset 35}${color1}Song : unknown
+${endif}
+
+${color2}${font StyleBats:size=16}z${font} Ports
+${offset 35}${color1}Open : ${tcp_portmon 1 65535 count}

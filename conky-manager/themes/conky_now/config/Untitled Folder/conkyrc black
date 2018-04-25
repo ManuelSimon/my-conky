@@ -1,0 +1,136 @@
+# Use Xft?
+use_xft yes
+xftfont Open Sans Light:size=8
+xftalpha 0.8
+text_buffer_size 2048
+uppercase yes
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_argb_visual yes
+#own_window_argb_value 255
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+minimum_size 250
+
+# Draw shades?
+draw_shades no
+default_shade_color 292421
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_inner_margin 5
+border_outer_margin 0
+draw_graph_borders no
+# border width
+border_width 0
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 5
+gap_y 10
+
+#	Distric-Thin			fonts
+#	Blue Highway
+#	Raleway
+#	Zekton
+#	Calibri
+#	Engebrechtre
+#	Opeln2001
+#	Open Sans Light
+#	Open Sans Light
+
+# -- Lua Load -- #
+lua_load ~/.conky/.draw_bg.lua
+lua_draw_hook_pre draw_bg
+
+lua_load ~/.conky/.bargraph_small.lua
+lua_draw_hook_post main_bars
+
+imlib_cache_size 0
+
+color1 0099CC
+color2 9933CC
+color3 669900
+color4 FF8800
+color5 CC0000
+color6 AAAAAA
+color7 484848
+
+TEXT
+${lua conky_draw_bg}${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=1103273&u=c" -o ~/.cache/weather.xml}${font Open Sans Light:size=15}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "city=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}, ${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "country=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${font}
+${font Open Sans Light:size=45}${alignr}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°${font}
+${lua conky_draw_bg}${execi 300 cp -f ~/.weathericons/$(grep "yweather:condition" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*").png ~/.cache/weather.png}${image ~/.cache/weather.png -p 0,45 -s 60x60}
+${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "text=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}
+${color6}${execi 300 grep "yweather:wind" ~/.cache/weather.xml | grep -o "speed=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${execi 300 grep "yweather:units" ~/.cache/weather.xml | grep -o "speed=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${color}
+${lua conky_draw_bg}${execi 300 cp -f ~/.weathericons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1).png ~/.cache/weather-today.png}${image ~/.cache/weather-today.png -p 0,175 -s 30x30}${execi 300 cp -f ~/.weathericons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1).png ~/.cache/weather-tomorrow.png}${image ~/.cache/weather-tomorrow.png -p 130,175 -s 30x30}
+${goto 60}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1}${goto 190}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1}
+${goto 60}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1}° ${color6}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1}°${color}${goto 190}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1}° ${color6}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1}°${color}${voffset 15}
+${color7}${hr}${color}
+${if_existing /proc/net/route wlan0}
+${color1}Up:${color} ${color3}${upspeed wlan0}${color}${alignr}${color1}Down:${color} ${color3}${downspeed wlan0}${color}
+${upspeedgraph wlan0 50,120 FF8800 FF8800}${alignr}${downspeedgraph wlan0 50,120 FF8800 FF8800}
+${color1}Sent:${color} ${color2}${totalup wlan0}${color}${alignr}${color1}Received:${color} ${color2}${totaldown wlan0}${color}
+${else}${if_existing /proc/net/route eth0}
+${color1}Up:${color} ${color3}${upspeed eth0}${color}${alignr}${color1}Down:${color} ${color3}${downspeed eth0}${color}
+${upspeedgraph eth0 50,120 FF8800 FF8800}${alignr}${downspeedgraph eth0 50,120 FF8800 FF8800}
+${color1}Sent:${color} ${color2}${totalup eth0}${color}${alignr}${color1}Received:${color} ${color2}${totaldown eth0}${color}
+${else}${if_existing /proc/net/route eth1}
+${color1}Up:${color} ${color3}${upspeed eth1}${color}${alignr}${color1}Down:${color} ${color3}${downspeed eth1}${color}
+${upspeedgraph eth1 50,120 FF8800 FF8800}${alignr}${downspeedgraph eth1 50,120 FF8800 FF8800}
+${color1}Sent:${color} ${color2}${totalup eth1}${color}${alignr}${color1}Received:${color} ${color2}${totaldown eth1}${color}
+${else}${if_existing /proc/net/route ppp0}
+${color1}Up:${color} ${color3}${upspeed ppp0}${color}${alignr}${color1}Down:${color} ${color3}${downspeed ppp0}${color}
+${upspeedgraph ppp0 50,120 FF8800 FF8800}${alignr}${downspeedgraph ppp0 50,120 FF8800 FF8800}
+${color1}Sent:${color} ${color2}${totalup ppp0}${color}${alignr}${color1}Received:${color} ${color2}${totaldown ppp0}${color}
+${else}
+Network disconnected
+${color6}Connect to a network to see statistics${color}
+${voffset 50}
+${endif}${endif}${endif}${voffset -15}
+${color7}${hr}${color}
+${font Open Sans Light:size=15}System Info 
+${color}${font Open Sans Light:pixelsize=10}USER: ${color1}${alignr}${nodename}
+${color}${font Open Sans Light:pixelsize=10}DISTRO:  ${color1}${alignr}${pre_exec lsb_release -sd || cat /etc/*release}
+${color}${font Open Sans Light:pixelsize=10}KERNEL: ${color1}${alignr}${kernel}
+${color}${font Open Sans Light:pixelsize=10}ARCH: ${color1}${alignr}$machine
+${color}${font Open Sans Light:pixelsize=10}CPU: ${color1}${alignr}${freq_g cpu0} GHz
+${color}${font Open Sans Light:pixelsize=10}UPTIME: ${color1}${alignr}${uptime}
+${color}${font Open Sans Light:pixelsize=10}PROCESSES: ${color1}${alignr}$processes ($running_processes running)
+${color7}${hr}${color}
+${font Open Sans Light:size=15}Processors/Memory
+${color}${font Open Sans Light:pixelsize=10}CPU 1: ${color1}${alignc}${freq_g 0} ${color1}Ghz ${color2}${alignr}${cpu cpu0}${color1}%
+${color}${font Open Sans Light:pixelsize=10}CPU 2: ${color1}${alignc}${freq_g 1} ${color1}Ghz ${color2}${alignr}${cpu cpu1}${color1}%
+${alignr}${loadgraph 50,250 FF8800 FF8800 -l}
+${color}${font Open Sans Light:pixelsize=10}RAM: ${color3}${alignc 10}${mem}
+${color}${font Open Sans Light:pixelsize=10}TOTAL: ${color3}${alignc 10}${memmax}
+${font Open Sans Light:pixelsize=10}${color #ffffff}CPU TEMP 1: ${color3}${alignr}${execp sensors coretemp-isa-0000 | grep 'Core 0' | cut -c16-17} ${color1}°C${color2} ${color3}/ ${color3}105${color1} °C$color
+${font Open Sans Light:pixelsize=10}${color #ffffff}CPU TEMP 2: ${color3}${alignr}${execp sensors coretemp-isa-0000 | grep 'Core 1' | cut -c16-17} ${color1}°C ${color3}/ ${color3}105${color1} °C$color
+#${color7}${hr}${color}
+
+

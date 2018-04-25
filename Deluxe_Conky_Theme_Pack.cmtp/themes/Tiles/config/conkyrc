@@ -1,0 +1,50 @@
+use_xft yes
+xftfont Birch Std:size=22
+default_bar_size 200 2
+update_interval 1
+
+total_run_times 0
+double_buffer yes
+text_buffer_size 2048
+
+own_window yes
+own_window_colour 3D3D3D
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+minimum_size 500 500
+
+
+
+default_color D8D8D8
+draw_borders no
+border_margin 10
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+
+color0 E6E6E6
+color1 A7CC5C
+color2 E6E6E6
+
+alignment tr
+gap_x -70
+gap_y 30
+
+
+
+override_utf8_locale yes
+
+no_buffers yes
+TEXT
+${image ~/.conky/tiles.png  -s 410x460 -p 0,0}
+${goto 225}${voffset 42}${font Birch Std:size=25}Cpu${font}
+${goto 145}${voffset 25}C1. ${cpu cpu1} ${goto 290}${voffset -10}C2. ${cpu cpu2}
+${goto 225}${voffset 22}${font Birch Std:size=20}Ram${font}
+${goto 270}${voffset 20}${mem}
+${goto 185}${voffset 12}${font Birch Std:size=25}Wifi${font}
+${goto 110}${voffset 15}${wireless_link_qual wlan0}% 
+${goto 235}${voffset -18}Ul. ${upspeed wlan0} 
+${goto 235}${voffset 2}Dl. ${downspeed wlan0} 
+

@@ -1,0 +1,106 @@
+ # -- Conky settings -- #
+
+    background no
+    update_interval 1
+
+    cpu_avg_samples 2
+    net_avg_samples 2
+
+    override_utf8_locale yes
+
+    double_buffer yes
+    no_buffers yes
+
+    text_buffer_size 2048
+    imlib_cache_size 0
+
+    # -- Window specifications -- #
+
+    own_window yes
+    own_window_type normal
+    own_window_transparent yes
+    own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+    border_inner_margin 0
+    border_outer_margin 0
+    
+    minimum_size 360 360
+    maximum_width 360
+    
+
+    alignment tr
+    gap_x 10
+    gap_y -8
+
+    # -- Graphics settings -- #
+    draw_shades yes
+    draw_outline no
+    draw_borders yes
+    draw_graph_borders yes
+    default_color DDF2FF 
+    color1 4f94cd
+    color2 black
+    draw_borders no
+    border_margin 10
+    default_bar_size 330 10
+    
+    # -- Text settings -- #
+    use_xft yes
+    xftfont MaiandraGD:size=24
+    xftalpha 0.4
+    update_interval 2
+    uppercase no
+    
+    default_color 8b8b8b
+
+         TEXT
+${voffset 30}${font Helvetica LT Std :style=Condensed:size=60}${color 434343}${goto 90}${time %I}${goto 182}${color 434343}${time %M}${font Helvetica LT Std :size=15:style=condensed}${color 808080}${goto 270}${time %S %p}
+${voffset 100}${color whitesmoke}${font Helvetica LT Std :size=15}${alignr 70}${time %A},${time %e} ${time %B} ${time %G}
+${voffset -80}${goto 10}${font Helvetica LT Std :size=15}${color 909090}${execi 600 conkyForecast --location=CAXX0282 --datatype=CN --refetch}
+#${voffset 8}${font Helvetica LT Std :size=10}${color 707070}${goto 24}Бургас
+${font Helvetica LT Std :size=13}${color whitesmoke}${goto 10}${execi 1800 conkyForecast --location=CAXX0282 --datatype=CT}${voffset -30}${goto 290}${font Helvetica LT Std :size=30}${color d4d4d4}${execi 1800 conkyForecast --location=CAXX0282 -u
+--datatype=HT}
+${voffset 100}${font Helvetica LT Std :size=13}${color white}${goto 30}${execi 600 conkyForecast --location=CAXX0282 --datatype=HT -u --startday=1}/${color 707070}${execi 600 conkyForecast --location=CAXX0282 --datatype=LT -u --startday=1}${font Helvetica LT Std :size=13}${color white}${goto 95}${execi 600 conkyForecast --location=CAXX0282 --datatype=HT -u --startday=2}/${color 707070}${execi 600 conkyForecast --location=CAXX0282 --datatype=LT -u --startday=2}${font Helvetica LT Std :size=13}${color white}${goto 160}${execi 600 conkyForecast --location=CAXX0282 --datatype=HT -u --startday=3}/${color 707070}${execi 600 conkyForecast --location=CAXX0282 --datatype=LT -u --startday=3}${font Helvetica LT Std :size=13}${color white}${goto 225}${execi 600 conkyForecast --location=CAXX0282 --datatype=HT -u --startday=4}/${color 707070}${execi 600 conkyForecast --location=CAXX0282 --datatype=LT -u --startday=4}
+${font Helvetica LT Std :size=13}${color 707070}${goto 38}${execi 600 conkyForecast --location=CAXX0282 --datatype=DW --shortweekday --startday=1}${font Helvetica LT Std :size=13}${color 707070}${goto 103}${execi 600 conkyForecast --location=CAXX0282 --datatype=DW --shortweekday --startday=2}${font Helvetica LT Std :size=13}${color 707070}${goto 168}${execi 600 conkyForecast --location=CAXX0282 --datatype=DW --shortweekday --startday=3}${font Helvetica LT Std :size=13}${color 707070}${goto 233}${execi 600 conkyForecast --location=CAXX0282 --datatype=DW --shortweekday --startday=4}
+${voffset -18}${font Helvetica LT Std :size=13}${color 707070}${goto 300}${execi 600 conkyForecast --location=CAXX0282 --datatype=DW --shortweekday --startday=5}
+${voffset -37}${font Helvetica LT Std :size=13}${color white}${goto 290}${execi 600 conkyForecast --location=CAXX0282 --datatype=HT -u --startday=5}/${color 707070}${execi 600 conkyForecast --location=CAXX0282 --datatype=LT -u --startday=5}
+
+${voffset 35}${goto 108}${font Helvetica LT:style=Bold:size=15}${color 434343}--${execi 60 date +"%B %Y" | tr "[:lower:]" "[:upper:]"}--
+${font Bitstream Vera Sans Mono:style=Std:size=16}${color 707070}${execpi 60 DJS=`date +%_d`; cal | sed '1d' | sed '/./!d' | sed 's/$/                     /' | fold -w 21 | sed -n '/^.\{21\}/p' | sed 's/^/${alignc} /' | sed /" $DJS "/s/" $DJS "/" "'${color2}'"$DJS"'${color0}'" "/}
+${voffset 10}${offset 15}${font Helvetica LT:style=Bold:size=15}${color 434343}
+
+SYSTEM
+${offset 7}${font Helvetica LT:size=12}${color 434343}CPU 1${alignr 16}(${cpu cpu1}%)
+${offset 9}${color1}${cpubar}
+${offset 4}${voffset -19}${color2} ${execbar echo 0}
+${offset 7}${font Helvetica LT:size=12}${color 434343}CPU 2${alignr 16}(${cpu cpu2}%)
+${offset 9}${color1}${cpubar}
+${offset 4}${voffset -19}${color2} ${execbar echo 0}
+${offset 7}${font Helvetica LT:size=12}${color 434343}RAM ${alignc}$mem/$memmax${alignr 16}($memperc%)
+${offset 9}${color1}${membar}
+${offset 4}${voffset -19}${color2} ${execbar echo 0}
+${color2} ${cpugraph 30,335 FFFF00 FF0000 s}
+${offset 7}${font Helvetica LT:style=Bold:size=12}${color 434343}Highest CPU ${alignr 14} CPU% MEM%
+${offset 7}${font Helvetica LT:size=12}${color1}${top name 1}${alignr 30}${top cpu 1}${top mem 1}
+${offset 7}${top name 2}${alignr 30}${top cpu 2}${top mem 2}
+${offset 7}${top name 3}${alignr 30}${top cpu 3}${top mem 3}
+
+${offset 7}${font Helvetica LT:style=Bold:size=12}${color 434343}Highest MEM ${alignr 14} CPU% MEM%
+${offset 7}${font Helvetica LT:size=12}${color1}${top_mem name 1}${alignr 30}${top_mem cpu 1}${top_mem mem 1}
+${offset 7}${top_mem name 2}${alignr 30}${top_mem cpu 2}${top_mem mem 2}
+${offset 7}${top_mem name 3}${alignr 30}${top_mem cpu 3}${top_mem mem 3}
+${voffset 10}${offset 7}${font Helvetica LT:style=Bold:size=12}${color 434343}Down ${font Helvetica LT:size=12}${color1}${downspeed eth0} k/s ${alignr 18}${font Helvetica LT:style=Bold:size=12}${color 434343}Up ${font Helvetica LT:size=12}${color1}${font Helvetica LT:size=12}${color1}${font Helvetica LT:size=12}${color1}${upspeed eth0} k/s
+
+${offset 7}${font Helvetica LT:style=Bold:size=12}${color 434343}Total ${font Helvetica LT:size=12}${color1}${font Helvetica LT:size=12}${color1}${totaldown eth0} ${font Helvetica LT:style=Bold:size=12}${color 434343}${alignr 16}Total ${font Helvetica LT:size=12}${color1}${totalup eth0}
+
+${image ~/.conky/.images/base.png -p -10,40 -s 383x195}
+${image ~/.conky/.images/base.png -p -10,235 -s 383x103}
+${image ~/.conky/.images/base.png -p -10,344 -s 383x240}
+${image ~/.conky/.images/base.png -p -10,570 -s 383x500}
+${image ~/.conky/.images/flip_bg.png -p 78,10 -s 100x110}
+${image ~/.conky/.images/flip_bg.png -p 172,10 -s 100x110}
+${execpi 600 conkyForecast --location=CAXX0282 --template=~/.vreme.template}
+
+
+
+

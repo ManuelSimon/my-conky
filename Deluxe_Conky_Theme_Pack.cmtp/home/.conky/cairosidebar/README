@@ -1,0 +1,103 @@
+Conky Cairo Sidebar
+by jpope v1.0.2011.09.30
+
+http://identi.ca/jpope
+http://gplus.to/jpope
+
+A clean looking sidebar that is completely drawn via the lua file. Cairo and Lua 
+    need to be compiled into conky. On Debian, the 'conky-all' will get you what
+    you need. This config completely based by manipulating scripts wrote 
+    by LONDONALI1010.
+
+Updates:
+    v1.0 Initial release
+        
+Set up:
+1. If it doesn't exist, create folder at ~/.config/conky
+
+2. Extract archive in newly created conky folder. Path to the files should be: 
+    /home/$USER/.config/conky/cairosidebar/
+
+3. This setup uses the 'Droid Sans' and 'OpenLogos' fonts. If you don't have 
+    them installed already, they are included in the fonts folder. Otherwise, 
+    they can be downloaded from
+    http://www.fontsquirrel.com/fonts/Droid-Sans
+    http://www.dafont.com/openlogos.font
+
+4. As downloaded, this setup assumes that 'cpu0' 'BAT0' 'wlan0' and 
+    'hwmon temp 1' are your interfaces. If your system is different, edit the 
+    lua as needed at 
+    /home/$USER/.config/conky/cairosidebar/sidebar.lua
+
+5. This setup is 180px wide by 568px tall. It is configured to be centered on 
+    my netbook (1024x600) from top to bottom, with using a vertical panel. If 
+    you use a horizontal panel, you may need to adjust the 'gap_y' setting the 
+    the main config at
+    /home/$USER/.config/conky/cairosidebar/conkyrc
+    Make any other edits to the two files as needed.
+
+6. Being developed on Debian systems, the available updates count is determined
+    with the command
+    aptitude search '~U' | wc -l | tail
+    If there is a similar command for non-apt based systems, I am unaware of 
+    what it is. Edit or remove from both the conkyrc and the lua as needed.
+
+    This setup will only run the aptitude command once a day while the conky is 
+    running. It writes the output of the command to a text file located
+    /home/$USER/.config/conky/cairosidebar/upd
+    that is then read by the lua script.
+
+7. Start the sidebar with 
+    conky -qc /home/$USER/.config/conky/cairosidebar/conkyrc &
+
+
+References:
+LONDONALI1010 - http://mylittledesktop.blogspot.com/
+
+
+#### conky as compiled on my machines ####
+
+$ conky -v
+Conky 1.8.1 compiled Wed Sep  7 23:41:49 UTC 2011 for Linux 2.6.32-5-686-bigmem (i686)
+
+Compiled in features:
+
+System config file: /etc/conky/conky.conf
+Package library path: /usr/lib/conky
+
+ X11:
+  * Xdamage extension
+  * XDBE (double buffer extension)
+  * Xft
+  * ARGB visual
+
+ Music detection:
+  * Audacious
+  * MPD
+  * MOC
+  * XMMS2
+
+ General:
+  * math
+  * hddtemp
+  * portmon
+  * Curl
+  * RSS
+  * Weather (METAR)
+  * Weather (XOAP)
+  * wireless
+  * support for IBM/Lenovo notebooks
+  * nvidia
+  * eve-online
+  * config-output
+  * Imlib2
+  * apcupsd
+  * iostats
+  * ncurses
+  * Lua
+
+  Lua bindings:
+   * Cairo
+   * Imlib2
+
+

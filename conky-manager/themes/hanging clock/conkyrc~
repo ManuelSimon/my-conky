@@ -1,0 +1,59 @@
+################################################
+#                             Conky HUD 0.1                                       #
+#                     Created by Vladislav Bykov                           #
+#  Site: vladislavbyk.ru | Jabber: vladislavbyk@jabber.ru     #
+#                                   22.07.211                                         #
+################################################
+                      
+
+
+######################
+# Settings                          #
+######################
+background no
+update_interval 1.0
+total_run_times 0
+no_buffers yes
+double_buffer yes
+override_utf8_locale yes
+
+
+######################
+# Text                                #
+######################
+font Sans:size=7
+use_xft yes
+xftfont Sans:size=7.5
+xftalpha 0.1
+uppercase no
+
+
+#########################
+# Graphics                              #
+#########################
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+default_color white
+default_shade_color black
+default_outline_color black
+alignment tm
+gap_x 40
+gap_y 100
+
+maximum_width 220
+minimum_size 150
+
+#########################
+# Code                                     #
+#########################
+TEXT
+ 
+${font Caviar Dreams :style=Bold :size=26}${color black} ${voffset 20}${goto 35}${time %H:}${time %M}${font}
+${image ~/.conky/case.png}
+
