@@ -12,4 +12,4 @@ sudo apt-get update
 sudo apt-get install conky-manager 
 ```
 
-Then just copy-paste all the files this repo contains on the user's home folder and launch the conky-manager. It should works.
+Then just copy-paste all the files this repo contains inside the user's home folder and launch the conky-manager. It should works.
