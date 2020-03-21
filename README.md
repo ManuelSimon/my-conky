@@ -20,5 +20,5 @@ To enable Conky every time the PC turns on, follow these steps:
 2. Execute this command within the "Startup applications":
 
 ```
-bash $HOME/conky-manager/conky-startup.sh
+/home/manuel/conky-manager/conky-startup.sh
 ```
